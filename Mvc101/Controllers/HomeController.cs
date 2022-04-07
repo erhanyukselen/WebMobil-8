@@ -22,6 +22,9 @@ namespace Mvc101.Controllers
                 Mesaj="home/index çalıştı"
             });
 
+            var WissenSms = (WissenSmsService)_smsService;
+            Debug.WriteLine(WissenSms.EndPoint);
+
             return View();
         }
 
