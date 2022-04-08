@@ -10,14 +10,19 @@ namespace Mvc101.Controllers
     {
         private readonly ISmsService _smsService;
         private readonly IEmailService _emailService;
+        private readonly IWebHostEnvironment _appEnvironment;
+        private readonly IServiceProvider _serviceProvider;
+        
 
-        public HomeController(ISmsService smsService, IEmailService emailService)
+        public HomeController(ISmsService smsService, IEmailService emailService, IWebHostEnvironment appEnvironment, IServiceProvider serviceProvider)
         {
             _smsService=smsService;
             _emailService = emailService;
+            _appEnvironment = appEnvironment;
+            _serviceProvider = serviceProvider;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id=0)
         {
             var result = _smsService.Send(new SmsModel()
             {
@@ -27,6 +32,19 @@ namespace Mvc101.Controllers
 
             var WissenSms = (WissenSmsService)_smsService;
             Debug.WriteLine(WissenSms.EndPoint);
+
+
+            IEmailService emailService;
+            if(id % 2 ==0)
+            {
+                emailService = (IEmailService)_serviceProvider.GetService(typeof(SendGridEmailService));
+            }
+            else
+            {
+                emailService = (IEmailService)_serviceProvider.GetService<OutLookEmailService>();
+            }
+
+            var fileStream = new FileStream($"{_appEnvironment.WebRootPath}\\files\\portre.jpeg", FileMode.Open);
 
             _emailService.SendMailAsync(new MailModel()
             {
@@ -39,7 +57,11 @@ namespace Mvc101.Controllers
                     }
                 },
                 Subject = "Index Açıldı",
-                Body = "Bu emailin body kısmıdır"
+                Body = "Bu emailin body kısmıdır",
+                Attachs = new List<Stream>()
+                {
+                    fileStream
+                }
             });
 
             return View();
