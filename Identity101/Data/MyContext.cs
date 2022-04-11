@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Identity101.Models.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Identity101.Data
 {
-    public class MyContext : IdentityDbContext
+    public sealed class MyContext : IdentityDbContext<ApplicationsUser,ApplicationRole,string>
     {
+        public MyContext(DbContextOptions options)
+            : base(options)
+        {
 
+        }
     }
 }
