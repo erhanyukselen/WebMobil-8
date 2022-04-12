@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Identity101.Controllers;
 
-public class HomeController : Controller
+[Authorize(Roles = "Admin")]
+public class AdminController : Controller
 {
+    //[AllowAnonymous]
     public IActionResult Index()
     {
         return View();

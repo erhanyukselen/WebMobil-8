@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-var Con1 = builder.Configuration.GetConnectionString("Con1");
-builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(Con1));
+var con1 = builder.Configuration.GetConnectionString("con1");
+builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(con1));
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     // Password settings.
