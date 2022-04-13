@@ -219,13 +219,13 @@ public class AccountController : Controller
 
         return View();
     }
-    [HttpGet]
     public IActionResult ConfirmResetPassword(string userId, string code)
     {
         if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
         {
-            return BadRequest(error: "Hatalı istek");
+            return BadRequest("Hatalı istek");
         }
+
         ViewBag.Code = code;
         ViewBag.UserId = userId;
         return View();
@@ -233,31 +233,70 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> ConfirmResetPassword(ResetPasswordViewModel model)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return View(model);
         }
-        var user = await _userManager.FindByEmailAsync(model.UserId);
-        
-        if(user == null)
+
+        var user = await _userManager.FindByIdAsync(model.UserId);
+
+        if (user == null)
         {
-            ModelState.AddModelError(key: string.Empty, errorMessage: "Kullanıcı bulunamadı");
+            ModelState.AddModelError(string.Empty, "Kullanıcı bulunamadı");
             return View();
         }
-        var code = Encoding.UTF8.GetString(bytes: WebEncoders.Base64UrlDecode(model.Code));
-        var result = await _userManager.ResetPasswordAsync(user, token:code, model.NewPassword);
+        var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Code));
+        var result = await _userManager.ResetPasswordAsync(user, code, model.NewPassword);
 
-        if(!result.Succeeded)
+        if (result.Succeeded)
         {
             //email gönder
             TempData["Message"] = "Şifre değişikliğiniz gerçekleştirilmiştir";
             return View();
         }
+
+        var message = string.Join("<br>", result.Errors.Select(x => x.Description));
+        TempData["Message"] = message;
+        return View();
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task <IActionResult> Profile()
+    {
+        var user = await _userManager.FindByNameAsync(HttpContext.User.Identity!.Name);
+
+        var model = new UserProfileViewModel()
+        {
+            Email = user.Email,
+            Name = user.Name,
+            Surname = user.Surname,
+        };
+        return View(model);
+    }
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> Profile(UserProfileViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+        var user = await _userManager.FindByNameAsync(HttpContext.User.Identity!.Name);
+        user.Name = model.Name;
+        user.Surname = model.Surname;
+        user.Email = model.Email;
+
+        //TODO: eğer email değiştiyse. kullanıcının rolünü pasife çekip tekrar aktivasyon maili göndermelidir
+
+        var result = await _userManager.UpdateAsync(user);
+        if(result.Succeeded)
+        {
+            ViewBag.Message = "Güncelleme başarılı";
+        }
         else
         {
             var message = string.Join("<br>", result.Errors.Select(x => x.Description));
-            TempData["Message"] = message;
-            return View();
+            ViewBag.Message = message;
         }
+        return View(model);
     }
 }
