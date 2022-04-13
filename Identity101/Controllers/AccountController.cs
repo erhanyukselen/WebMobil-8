@@ -219,4 +219,45 @@ public class AccountController : Controller
 
         return View();
     }
+    [HttpGet]
+    public IActionResult ConfirmResetPassword(string userId, string code)
+    {
+        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
+        {
+            return BadRequest(error: "Hatalı istek");
+        }
+        ViewBag.Code = code;
+        ViewBag.UserId = userId;
+        return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> ConfirmResetPassword(ResetPasswordViewModel model)
+    {
+        if(!ModelState.IsValid)
+        {
+            return View(model);
+        }
+        var user = await _userManager.FindByEmailAsync(model.UserId);
+        
+        if(user == null)
+        {
+            ModelState.AddModelError(key: string.Empty, errorMessage: "Kullanıcı bulunamadı");
+            return View();
+        }
+        var code = Encoding.UTF8.GetString(bytes: WebEncoders.Base64UrlDecode(model.Code));
+        var result = await _userManager.ResetPasswordAsync(user, token:code, model.NewPassword);
+
+        if(!result.Succeeded)
+        {
+            //email gönder
+            TempData["Message"] = "Şifre değişikliğiniz gerçekleştirilmiştir";
+            return View();
+        }
+        else
+        {
+            var message = string.Join("<br>", result.Errors.Select(x => x.Description));
+            TempData["Message"] = message;
+            return View();
+        }
+    }
 }
