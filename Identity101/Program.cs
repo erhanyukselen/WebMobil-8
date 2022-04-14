@@ -27,7 +27,8 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._";
     options.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<MyContext>()
-    .AddDefaultTokenProviders(); ;
+    .AddDefaultTokenProviders();
+;
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -50,6 +51,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
