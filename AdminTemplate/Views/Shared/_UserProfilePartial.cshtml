@@ -1,8 +1,16 @@
-﻿<div class="user-profile">
+﻿@model UserProfileViewModel
+
+<div class="user-profile">
     <div class="dropdown user-pro-body">
         <div><img src="..\..\assets\images\faces\female\25.jpeg" alt="user-img" class="img-circle"></div>
-        <div class="mb-2"><a href="#" class="" data-toggle="" aria-haspopup="true" aria-expanded="false"> <span class="font-weight-semibold">Joyce Stewart</span>  </a>
-            <br><span class="text-gray">Web Designer</span>
+        <div class="mb-2">
+            <a data-toggle="" aria-haspopup="true" aria-expanded="false"
+               asp-controller="Account" asp-action="Profile">
+                <span class="font-weight-semibold">
+                    Erhan
+                </span>
+            </a>
+            <br><span class="text-gray">To do Title </span>
         </div>
     </div>
 </div>
