@@ -2,8 +2,17 @@
 
 namespace AdminTemplate.ViewModels;
 
-public class ResetPasswordViewModel
+public class ChangePasswordViewModel
 {
+    [Required(ErrorMessage = "Mevcut şifre alanı gereklidir.")]
+    [DataType(DataType.Password)]
+    [Display(Name = "Mevcut Şifre")]
+    public string CurrentPassword
+    {
+        get; set;
+    }
+
+
     [Required(ErrorMessage = "Yeni şifre alanı gereklidir.")]
     [StringLength(100, MinimumLength = 6, ErrorMessage = "Şifreniz minimum 6 karakterli olmalıdır!")]
     [DataType(DataType.Password)]
@@ -17,15 +26,7 @@ public class ResetPasswordViewModel
     [DataType(DataType.Password)]
     [Display(Name = "Yeni Şifre Tekrar")]
     [Compare(nameof(NewPassword), ErrorMessage = "Şifreler uyuşmuyor")]
-    public string ConfirmNewPassword
-    {
-        get; set;
-    }
-    public string Code
-    {
-        get; set;
-    }
-    public string UserId
+    public string NewPasswordConfirm
     {
         get; set;
     }
