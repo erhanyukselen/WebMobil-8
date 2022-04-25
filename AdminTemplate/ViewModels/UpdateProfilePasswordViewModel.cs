@@ -6,8 +6,6 @@ public class UpdateProfilePasswordViewModel
     {
         get; set;
     }
-
-
     public ChangePasswordViewModel? ChangePasswordVM
     {
         get; set;
