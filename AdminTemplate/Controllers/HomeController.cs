@@ -1,4 +1,5 @@
 ﻿using AdminTemplate.Data;
+using AdminTemplate.ViewModels;
 using AdminTemplate.ViewModels.Dashboard;
 using Microsoft.AspNetCore.Mvc;
 
