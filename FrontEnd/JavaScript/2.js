@@ -52,8 +52,9 @@ function diziDongu() {
 
 //arrow function 
 var diziDongu2 = () => {
-    array.map(item => {
-    console.log(item);
+    array.map((item,index, itself) => {
+    console.log("Index: "+index + " Değer: " + item);
+    console.log("itself: " + itself);
 });
 
 }
