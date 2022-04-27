@@ -13,7 +13,13 @@ var changeColor = () => {
     var colorRev = `rgb(${255 - rangeRed.value},${255 - rangeGreen.value},${255 - rangeBlue.value})`; //255-renk dememizin sebebi yazının sürekli okunabilir olması için 
     pickerDiv.innerHTML = color;
     pickerDiv.style.backgroundColor = color;
-    pickerDiv.style.color = colorRev;
+    pickerDiv.style.color = colorRev;  
 }
+
+    var copyClipboard = () => {
+        var pickerDiv = document.getElementById("picker-div");
+        navigator.clipboard.writeText(pickerDiv.innerHTML);
+        alert("Kopyalandı: "+pickerDiv.innerHTML);
+    }
 
 changeColor();
