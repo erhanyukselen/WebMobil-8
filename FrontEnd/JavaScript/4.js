@@ -31,7 +31,10 @@ var showPosition = (position) => {
 
 
     map.addListener('click', (e) => {
+        console.log(e);
+        console.log(e.latLng.lat())
         var posClick = {
+            
             lat: e.latLng.lat(),
             lng: e.latLng.lng()
         };
