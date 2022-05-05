@@ -5,18 +5,32 @@ let myPosition = null;
 let destinationPosition = null;
 let directionsService = null;
 let directionsRenderer = null;
+let wayPoints = [];
+
+const checkLocalStorage = () => {
+    if (localStorage.getItem("places") === null) {
+        localStorage.setItem("places", JSON.stringify(places));
+    } else {
+        places = JSON.parse(localStorage.getItem("places"));
+        for (let i = 0; i < places.length; i++) {
+            let place = places[i];
+            addPlaceHtml(place);
+        }
+    }
+};
 
 var initMap = () => {
     if (navigator.geolocation) {
         directionsService = new google.maps.DirectionsService();
         directionsRenderer = new google.maps.DirectionsRenderer();
         navigator.geolocation.getCurrentPosition(showPosition);
+
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
 }
 
-var showPosition = (position) => {
+const showPosition = (position) => {
     //console.log(position);
     myPosition = {
         lat: position.coords.latitude,
@@ -27,7 +41,11 @@ var showPosition = (position) => {
         center: myPosition,
         zoom: 18,
         mapTypeControl: false,
+        styles: mapStyleArr
     });
+
+    const trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
 
     directionsRenderer.setMap(map); //çiziciyi haritaya bağladık
     directionsRenderer.setPanel(document.getElementById("mapPanel"));// sonuçlar burada gösterilecek;
@@ -39,7 +57,6 @@ var showPosition = (position) => {
         strictBounds: false,
         types: ["establishment"],
     };
-
 
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
 
@@ -103,31 +120,62 @@ const addPlace = () => {
         }
 
         places.push(venue);
-
+        localStorage.setItem("places", JSON.stringify(places));
         // console.log(places);
-        const placeList = document.getElementById("place-list");
-        const placeItem = document.createElement("li");
-        placeList.classList.add("list-group");
-        placeList.classList.add("list-group-flush");
-        placeItem.classList.add("list-group-item");
-        placeItem.innerHTML = `${place.name}`;
-        placeList.appendChild(placeItem);
+        addPlaceHtml(venue);
         place = null;
     }
 }
 
+const addPlaceHtml = (place) => {
+    const placeList = document.getElementById("place-list");
+    const placeItem = document.createElement("li");
+    placeList.classList.add("list-group");
+    placeList.classList.add("list-group-flush");
+    placeItem.classList.add("list-group-item");
+    placeItem.classList.add("item-silinecek");
+    placeItem.innerHTML = `${place.name}`;
+    placeList.appendChild(placeItem);
+
+    placeItem.addEventListener("click", () => {
+        placeList.removeChild(placeItem);
+        // for (let i = 0; i < places.length; i++) {
+        //     const item = places[i];
+        //     if (item.id == place.id) {
+        //         places.splice(i, 1);
+        //         break;
+        //     }
+        // }
+        places = places.filter(item => item.id !== place.id);
+        localStorage.setItem("places", JSON.stringify(places));
+    });
+}
+
 const getDirections = () => {
+    if (places.length == 0) return;
+
+    wayPoints = [];
+    for (let i = 0; i < places.length; i++) {
+        wayPoints.push({
+            stopover: false,
+            location: { placeId: places[i].id }
+        });
+    }
+    //console.log(wayPoints);
+
     directionsService.route({
         origin: myPosition,
-        destination: destinationPosition,
+        destination: myPosition,
         travelMode: "DRIVING",
+        waypoints: wayPoints,
+        optimizeWaypoints: true,
         drivingOptions: {
             departureTime: new Date(Date.now()),
             trafficModel: "bestguess"
         }
     }, (response, status) => {
         if (status === "OK") {
-            console.log(response);
+            //console.log(response);
             directionsRenderer.setDirections(response);
         } else {
             window.alert("Directions request failed due to " + status);
@@ -135,9 +183,8 @@ const getDirections = () => {
     });
 };
 
-
 const checkPlaces = (venue) => {
-    console.log([places, venue]);
+    //console.log([places, venue]);
     for (let i = 0; i < places.length; i++) {
         const item = places[i];
         if (item.id === venue.id) {
@@ -146,3 +193,141 @@ const checkPlaces = (venue) => {
     }
     return false;
 };
+//https://snazzymaps.com/style/287720/modest
+const mapStyleArr = [
+    {
+        "featureType": "all",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#202c3e"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "gamma": 0.01
+            },
+            {
+                "lightness": 20
+            },
+            {
+                "weight": "1.39"
+            },
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "weight": "0.96"
+            },
+            {
+                "saturation": "9"
+            },
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#000000"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 30
+            },
+            {
+                "saturation": "9"
+            },
+            {
+                "color": "#29446b"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "saturation": 20
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 20
+            },
+            {
+                "saturation": -20
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 10
+            },
+            {
+                "saturation": -30
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#193a55"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "saturation": 25
+            },
+            {
+                "lightness": 25
+            },
+            {
+                "weight": "0.01"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "lightness": -20
+            }
+        ]
+    }
+];
