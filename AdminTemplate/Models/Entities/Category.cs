@@ -13,7 +13,7 @@ public class Category : BaseEntity<int>
         get; set;
     }
 
-    public IList<Product> Products
+    public IList<Product>? Products
     {
         get; set;
     }
