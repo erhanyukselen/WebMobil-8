@@ -25,4 +25,9 @@ public class LoginViewModel
     {
         get; set;
     }
+
+    public string? ReturnUrl
+    {
+        get; set;
+    }
 }
