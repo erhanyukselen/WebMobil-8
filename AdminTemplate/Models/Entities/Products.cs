@@ -14,7 +14,7 @@ public class Product : BaseEntity<Guid>
         get; set;
     }
 
-    public Category Category
+    public Category? Category
     {
         get; set;
     }
