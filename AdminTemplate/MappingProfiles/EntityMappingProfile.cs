@@ -11,8 +11,8 @@ namespace AdminTemplate.MappingProfiles
             CreateMap<Category, CategoryDto>().ReverseMap(); //2 yöndede dönüşüm yapılır.
                                                              //CreateMap<CategoryDto, Category>();
 
-            //productdto
-
+            CreateMap<Product, ProductDto>().ForMember(x => x.CategoryName, dest => dest.MapFrom(s => s.Category.Name));
+            CreateMap<ProductDto, Product>();
         }
     }
 }
