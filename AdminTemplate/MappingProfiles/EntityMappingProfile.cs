@@ -9,10 +9,15 @@ namespace AdminTemplate.MappingProfiles
         public EntityMappingProfile()
         {
             CreateMap<Category, CategoryDto>().ReverseMap(); //2 yöndede dönüşüm yapılır.
-                                                             //CreateMap<CategoryDto, Category>();
+            //CreateMap<CategoryDto, Category>();
 
-            CreateMap<Product, ProductDto>().ForMember(x => x.CategoryName, dest => dest.MapFrom(s => s.Category.Name));
-            CreateMap<ProductDto, Product>();
+            //productdto
+            //CreateMap<Product, ProductDto>().ForMember(x => x.CategoryName, 
+            //    src => 
+            //        src.MapFrom(x=>x.Category.Name)
+            //        );
+            CreateMap<Product, ProductDto>().ReverseMap();
+
         }
     }
 }

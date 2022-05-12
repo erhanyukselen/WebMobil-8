@@ -1,15 +1,23 @@
-﻿namespace AdminTemplate.Dtos
+﻿using AdminTemplate.Dtos.Abstracts;
+
+namespace AdminTemplate.Dtos
 {
-    public class ProductDto
+    public class ProductDto : BaseDto<Guid>
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public decimal UnitPrice { get; set; }
+        public string Name
+        {
+            get; set;
+        }
+        public decimal UnitPrice
+        {
+            get; set;
+        }
         public int CategoryId
         {
             get; set;
         }
-        public string? CategoryName
+
+        public CategoryDto? Category
         {
             get; set;
         }

@@ -23,40 +23,19 @@ namespace AdminTemplate.Controllers.Apis
         [HttpGet]
         public IActionResult All()
         {
-            try
-            {
-                var data = _context.Products
-                    .Include(x => x.Category)
-                        .ToList()
-                        .Select(x => _mapper.Map<ProductDto>(x))
-                        .ToList();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Message = $"Bir hata oluştu: {ex.Message}" });
-            }
-        }
+            var products = _context.Products.Include(x => x.Category)
+                .ToList()
+                .Select(x => _mapper.Map<ProductDto>(x))
+                .ToList();
 
+            return Ok(products);
+        }
 
         [HttpGet]
         public IActionResult Detail(Guid id)
         {
-            try
-            {
-                var data = _context.Products.Find(id);
-                if (data == null)
-                {
-                    return NotFound(new { Message = $"{id} numaralı kategori bulunamadı" });
-                }
-                var model = _mapper.Map<ProductDto>(data);
-
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Message = $"Bir hata oluştu: {ex.Message}" });
-            }
+            var product = _mapper.Map<ProductDto>(_context.Products.Find(id));
+            return Ok(product);
         }
 
         [HttpPost]
@@ -71,12 +50,16 @@ namespace AdminTemplate.Controllers.Apis
                 return Ok(new
                 {
                     Success = true,
-                    Message = $"{model.Name} isimli kategori başarıyla eklendi"
+                    Message = $"{data.Name} isimli ürün kaydedildi"
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { Message = $"Bir hata oluştu: {ex.Message}" });
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
             }
         }
 
@@ -90,11 +73,11 @@ namespace AdminTemplate.Controllers.Apis
                 {
                     return NotFound(new { Success = false, Message = "Ürün bulunamadı" });
                 }
+                model.UpdatedUser = HttpContext.User.Identity!.Name;
+                model.UpdatedDate = DateTime.UtcNow;
                 product.Name = model.Name;
                 product.UnitPrice = model.UnitPrice;
-                product.UpdatedUser = HttpContext.User.Identity!.Name;
-                product.UpdatedDate = DateTime.UtcNow;
-
+                product.CategoryId = model.CategoryId;
                 _context.SaveChanges();
                 return Ok(new
                 {
