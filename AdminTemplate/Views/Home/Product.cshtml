@@ -2,9 +2,9 @@
     ViewBag.Title = "Ürün Sayfası";
 }
 <div class="row">
-    <div class="col-md-12" id="cardListProduct">
+    <div class="col-md-6" id="cardListProduct">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h3 class="card-title">Ürün Listesi </h3>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="switch">
@@ -26,7 +26,7 @@
             <div class="card-body">
                 <form id="formProduct">
                     <div class="mb-3 row">
-                        <label for="cmbCategory" class="col-sm-2 col-form-label">Kategorisi</label>
+                        <label for="cmbCategory" class="col-sm-3 col-form-label">Kategorisi</label>
                         <div class="col-sm-10">
                             <select id="cmbCategory" class="custom-select">
                                 <option>Bir kategori seçiniz</option>
@@ -34,13 +34,13 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="txtProductName" class="col-sm-2 col-form-label">Ürün Adı</label>
+                        <label for="txtProductName" class="col-sm-3 col-form-label">Ürün Adı</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="txtProductName">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="txtUnitPrice" class="col-sm-2 col-form-label">Fiyatı</label>
+                        <label for="txtUnitPrice" class="col-sm-3 col-form-label">Fiyatı</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="txtUnitPrice">
                         </div>
@@ -60,7 +60,7 @@
             <div class="card-body">
                 <form id="formUpdateProduct">
                     <div class="mb-3 row">
-                        <label for="cmbCategory" class="col-sm-2 col-form-label">Kategorisi</label>
+                        <label for="cmbCategory" class="col-sm-3 col-form-label">Kategorisi</label>
                         <div class="col-sm-10">
                             <select id="cmbUpdateCategory" class="custom-select">
                                 <option>Bir kategori seçiniz</option>
@@ -68,13 +68,13 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="txtUpdateProductName" class="col-sm-2 col-form-label">Ürün Adı</label>
+                        <label for="txtUpdateProductName" class="col-sm-3 col-form-label">Ürün Adı</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="txtUpdateProductName">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="txtUpdateUnitPrice" class="col-sm-2 col-form-label">Fiyatı</label>
+                        <label for="txtUpdateUnitPrice" class="col-sm-3 col-form-label">Fiyatı</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="txtUpdateUnitPrice">
                         </div>
@@ -104,7 +104,7 @@
                     } else {
                         $("#cardAddProduct").slideUp(750,
                             () => {
-                                $("#cardListProduct").attr("class", "col-md-12");
+                                $("#cardListProduct").attr("class", "col-md-6");
                             });
                     }
 
@@ -156,7 +156,7 @@
                         getProducts();
                         $("#cardUpdateProduct").slideUp(750,
                             () => {
-                                $("#cardListProduct").attr("class", "col-md-12");
+                                $("#cardListProduct").attr("class", "col-md-6");
                             });
                     }).fail(error => {
                         console.log(error);
