@@ -29,21 +29,34 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminTemplate", "AdminTempl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7.Gün", "7.Gün", "{0D5F6386-5F8A-45CE-BBFC-AE7A79788E3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WissenShop.Web", "WissenShop.Web\WissenShop.Web.csproj", "{6648C7DB-92E6-4AB4-A19A-059143380E75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WissenShop.Web", "WissenShop.Web\WissenShop.Web.csproj", "{6648C7DB-92E6-4AB4-A19A-059143380E75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WissenShop.Core", "WissenShop.Core\WissenShop.Core.csproj", "{19DF0D41-9A89-4382-9945-77ED0CF66540}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WissenShop.Core", "WissenShop.Core\WissenShop.Core.csproj", "{19DF0D41-9A89-4382-9945-77ED0CF66540}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WissenShop.Data", "WissenShop.Data\WissenShop.Data.csproj", "{05449503-4D62-4843-A590-BA9096A6FE9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WissenShop.Data", "WissenShop.Data\WissenShop.Data.csproj", "{05449503-4D62-4843-A590-BA9096A6FE9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WissenShop.Business", "WissenShop.Business\WissenShop.Business.csproj", "{25A7F7FE-D517-4025-9488-59098A323F9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WissenShop.Business", "WissenShop.Business\WissenShop.Business.csproj", "{25A7F7FE-D517-4025-9488-59098A323F9E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backends", "Backends", "{293CDD8F-F831-4461-A169-60FAD20B5945}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WissenShop.Web.Core", "WissenShop.Web.Core\WissenShop.Web.Core.csproj", "{BD5076A5-4E77-4635-B260-9758C0C32F30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WissenShop.Web.Core", "WissenShop.Web.Core\WissenShop.Web.Core.csproj", "{BD5076A5-4E77-4635-B260-9758C0C32F30}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnds", "FrontEnds", "{3C8EBD7C-8E90-4C8E-8A67-432E75F07451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WissenShop.Web2", "WissenShop.Web2\WissenShop.Web2.csproj", "{5805B018-7E94-4048-AC1A-3DF31DC4F018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WissenShop.Web2", "WissenShop.Web2\WissenShop.Web2.csproj", "{5805B018-7E94-4048-AC1A-3DF31DC4F018}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8.Gün", "8.Gün", "{3EA9223B-F8D4-4845-BD04-4E8C372B446F}"
+	ProjectSection(SolutionItems) = preProject
+		NorthScript.sql = NorthScript.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "North.Businesss", "North.Businesss\North.Businesss.csproj", "{99AF5939-80B2-4AF0-959D-5A552677CD6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "North.Core", "North.Core\North.Core.csproj", "{6E7C2075-A613-4035-A058-06B95E9D0CD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "North.Data", "North.Data\North.Data.csproj", "{B92BD487-3DC8-4447-AF49-9D21A28A6F00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "North.Web", "North.Web\North.Web.csproj", "{7EE53091-D6C3-4106-AEC9-1A411E9ECB40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +112,22 @@ Global
 		{5805B018-7E94-4048-AC1A-3DF31DC4F018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5805B018-7E94-4048-AC1A-3DF31DC4F018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5805B018-7E94-4048-AC1A-3DF31DC4F018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99AF5939-80B2-4AF0-959D-5A552677CD6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99AF5939-80B2-4AF0-959D-5A552677CD6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99AF5939-80B2-4AF0-959D-5A552677CD6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99AF5939-80B2-4AF0-959D-5A552677CD6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7C2075-A613-4035-A058-06B95E9D0CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7C2075-A613-4035-A058-06B95E9D0CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7C2075-A613-4035-A058-06B95E9D0CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7C2075-A613-4035-A058-06B95E9D0CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92BD487-3DC8-4447-AF49-9D21A28A6F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92BD487-3DC8-4447-AF49-9D21A28A6F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92BD487-3DC8-4447-AF49-9D21A28A6F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92BD487-3DC8-4447-AF49-9D21A28A6F00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EE53091-D6C3-4106-AEC9-1A411E9ECB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE53091-D6C3-4106-AEC9-1A411E9ECB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EE53091-D6C3-4106-AEC9-1A411E9ECB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EE53091-D6C3-4106-AEC9-1A411E9ECB40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +147,10 @@ Global
 		{BD5076A5-4E77-4635-B260-9758C0C32F30} = {293CDD8F-F831-4461-A169-60FAD20B5945}
 		{3C8EBD7C-8E90-4C8E-8A67-432E75F07451} = {0D5F6386-5F8A-45CE-BBFC-AE7A79788E3E}
 		{5805B018-7E94-4048-AC1A-3DF31DC4F018} = {3C8EBD7C-8E90-4C8E-8A67-432E75F07451}
+		{99AF5939-80B2-4AF0-959D-5A552677CD6E} = {3EA9223B-F8D4-4845-BD04-4E8C372B446F}
+		{6E7C2075-A613-4035-A058-06B95E9D0CD8} = {3EA9223B-F8D4-4845-BD04-4E8C372B446F}
+		{B92BD487-3DC8-4447-AF49-9D21A28A6F00} = {3EA9223B-F8D4-4845-BD04-4E8C372B446F}
+		{7EE53091-D6C3-4106-AEC9-1A411E9ECB40} = {3EA9223B-F8D4-4845-BD04-4E8C372B446F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D57083F0-E72C-4B16-A028-C7AB242E7EA5}
